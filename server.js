@@ -1,13 +1,10 @@
 var express = require('express');
 var app = express();
-var PORT = 3000;
+var PORT = process.env.port || 3000; // heroku environemtn variable port or 3000 for locally
 
 var middleware = require('./middleware.js');
 
 app.use(middleware.logger);
-
-//must be up top the first one in order to be used
-//app.use(middleware.requireAuthentication);
 
 app.get('/about', middleware.requireAuthentication, function (req, res) {
 	res.send('About US !');
